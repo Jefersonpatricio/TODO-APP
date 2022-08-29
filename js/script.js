@@ -32,6 +32,15 @@ const saveTodo = (text) => {
 
     todoList.appendChild(todo);
 
+    todoInput.value = "";
+    todoInput.focus();
+
+}
+
+const toggleForms = () => {
+    editForm.classList.toggle("hide");
+    todoForm.classList.toggle("hide");
+    todoList.classList.toggle("hide");
 }
 
 
@@ -46,3 +55,26 @@ todoForm.addEventListener("submit", (e) => {
         saveTodo(inputValue);
     }
 });
+
+document.addEventListener("click", (e) => {
+    const targetEL = e.target;
+    const parentEL = targetEL.closest("div");
+
+    if (targetEL.classList.contains("finish-todo")) {
+        parentEL.classList.toggle("done");
+    }
+
+    if (targetEL.classList.contains("remove-todo")) {
+        parentEL.remove();
+    }
+
+    if (targetEL.classList.contains("edit-todo")) {
+        toggleForms()
+    }
+})
+
+cancelEditBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    toggleForms();
+})
